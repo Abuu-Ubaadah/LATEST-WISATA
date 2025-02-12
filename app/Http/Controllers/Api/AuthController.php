@@ -7,9 +7,41 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
+
 class AuthController extends Controller
 {
-    //login
+
+
+    // التسجيل
+
+    public function register(Request $request)
+{
+    // التحقق من صحة البيانات
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|unique:users',
+        'password' => 'required|string|min:6|confirmed',
+    ]);
+
+    // إنشاء المستخدم الجديد
+    $user = User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+    ]);
+
+    // إنشاء الرمز
+    $token = $user->createToken('Bearer Token')->plainTextToken;
+
+    return response()->json([
+        'status' => 'success',
+        'user' => $user,
+        'token' => $token,
+    ], 201);
+}
+
+
+    // تسجيل الدخول
     public function login(Request $request)
     {
         $request->validate([
@@ -19,24 +51,24 @@ class AuthController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
-        //check user
+        // تأكيد المستخدم
         if (!$user) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'User not found'
+                'message' => 'Accidentally User Is Not Found'
             ], 404);
         }
 
-        //check password
+        // تأكيد كلمة المرور
         if (!Hash::check($request->password, $user->password)) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Password is not match'
+                'message' => 'Password Is Not Actually Match'
             ], 404);
         }
 
-        //generate token
-        $token = $user->createToken('token')->plainTextToken;
+        // إنشاء الرمز
+        $token = $user->createToken('Bearer Token')->plainTextToken;
 
         return response()->json([
             'token' => $token,
@@ -44,14 +76,26 @@ class AuthController extends Controller
         ]);
     }
 
-    //logout
+    public function me(Request $request)
+{
+    $user = $request->user(); // الحصول على المستخدم المسجل حالياً
+
+    return response()->json([
+        'status' => 'success',
+        'user' => $user,
+    ]);
+}
+
+
+
+    // تسجيل الخروج
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Logout successfully'
+            'message' => 'Logout Successfully'
         ]);
     }
 }

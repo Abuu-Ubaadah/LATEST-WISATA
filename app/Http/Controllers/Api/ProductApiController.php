@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
@@ -9,12 +9,12 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Routing\Controller;
 
 
-class ProductController extends Controller
+class ProductApiController extends Controller
 {
 
     public function __construct()
     {
-        $this->middleware('auth'); // Pastikan Hanya User Yang Login Bisa Akses
+        $this->middleware('auth:sanctum'); // Pastikan Hanya User Yang Login Bisa Akses
     }
 
     /**
