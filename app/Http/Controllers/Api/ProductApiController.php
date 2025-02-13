@@ -69,7 +69,7 @@ class ProductApiController extends Controller
             $product->update(['image' => str_replace('public/', '', $imagePath)]);
         }
 
-        return redirect()->route('products.index')->with('success', 'Product created successfully');
+        return redirect()->route('products.index')->with('success', 'Product Has Created Successfully');
     }
 
     /**
