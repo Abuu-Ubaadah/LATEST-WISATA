@@ -25,10 +25,6 @@ Route::middleware('auth:sanctum')->prefix('categories')->group(function () {
     Route::delete('/{id}', [CategoryController::class, 'destroy']);
 });
 
-Route::middleware(['auth'])->group(function () {
-    Route::resource('products', ProductController::class);
-});
-
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('products', ProductApiController::class);
 });
