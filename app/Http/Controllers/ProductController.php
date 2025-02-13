@@ -14,7 +14,7 @@ class ProductController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth'); // Pastikan Hanya User Yang Login Bisa Akses
+        $this->middleware('auth'); // Pastikan Hanya User Yang Login; Yang Bisa Akses
     }
 
     /**
