@@ -7,6 +7,133 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+
+## 🚀 Struktur CRUD Product - Laravel API  
+![Laravel](https://img.shields.io/badge/Laravel-10-red?style=for-the-badge&logo=laravel)
+![PHP](https://img.shields.io/badge/PHP-8-blue?style=for-the-badge&logo=php)
+![Sanctum](https://img.shields.io/badge/Auth-Sanctum-purple?style=for-the-badge)
+
+> **CASE: Membangun CRUD Untuk Produk Dengan API Authentication Menggunakan Laravel Sanctum** 🚀
+
+---
+
+## 🎬 Demo Animasi  
+
+🚀 **Lihat Demo API CRUD** 👉 [Klik Di Sini](#)
+
+<p align="center">
+  <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYWxvczQ0b2N0ZHRqZGFhaDRkdXJvdmtobTdmZXllb2NhZWJmbjFjbSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/ZVikW1x3lEtHi/giphy.gif" width="600" />
+</p>
+
+---
+
+## 📂 Struktur Direktori CRUD Product
+```
+📦 proyek-laravel
+├── 📂 app
+│   ├── 📂 Http
+│   │   ├── 📂 Controllers
+│   │   │   ├── ProductController.php
+│   │   │   └── Api
+│   │   │       └── ProductApiController.php
+│   │   ├── 📂 Middleware
+│   │   └── 📂 Requests
+│   ├── 📂 Models
+│   │   └── Product.php
+│   ├── 📂 Services
+│   └── 📂 Providers
+├── 📂 routes
+│   ├── api.php
+│   ├── web.php
+├── 📂 database
+├── 📂 storage
+├── .env
+├── artisan
+└── composer.json
+```
+📌 **Penjelasan**:
+- **`app/Http/Controllers/ProductController.php`** → Mengelola CRUD Product Untuk Web.
+- **`app/Http/Controllers/Api/ProductApiController.php`** → Mengelola API CRUD Product Dengan Autentikasi Token.
+- **`app/Models/Product.php`** → Model Product Untuk Eloquent ORM.
+- **`routes/api.php`** → Routing Untuk API Menggunakan Sanctum.
+- **`routes/web.php`** → Routing Untuk Akses Berbasis Web.
+
+---
+
+## 🚀 Implementasi CRUD Product API Dengan Token
+
+### 🔗 1. Buat Route Product API
+Tambahkan Route API Di **`routes/api.php`**
+
+### 🎯 2. Buat Controller Product API
+Buat file **`app/Http/Controllers/Api/ProductApiController.php`**
+
+---
+
+## 🔑 Autentikasi dengan Sanctum
+Pastikan User Sudah Login Dan Mendapatkan Token. Gunakan Token Ini Saat Mengakses API:
+```http
+Authorization: Bearer <your_token_here>
+```
+Contoh Request Dengan Insomnia/Postman:
+```bash
+curl -X GET "http://127.0.0.1:8000/api/products" -H "Authorization: Bearer <your_token_here>"
+```
+
+---
+
+## 🛠️ Instalasi & Setup 
+```bash
+# Clone Repository
+git clone https://github.com/username/repo-name.git
+
+# Masuk Ke Folder Proyek
+cd repo-name
+
+# Install Dependencies
+composer install
+
+# Copy file .env
+cp .env.example .env
+
+# Generate Key
+php artisan key:generate
+
+# Jalankan Migrasi Database
+php artisan migrate --seed
+
+# Jalankan Server Lokal
+php artisan serve
+```
+
+---
+
+## 📌 Konsep MVC di Laravel
+Laravel menggunakan **MVC (Model-View-Controller)** untuk memisahkan logika aplikasi:
+- **Model** → Berinteraksi dengan database menggunakan Eloquent ORM.
+- **View** → Menampilkan data dalam bentuk template Blade.
+- **Controller** → Menangani request dan mengelola alur aplikasi.
+
+<p align="center">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/MVC-Process.svg/1280px-MVC-Process.svg.png" width="500" />
+</p>
+
+---
+
+## 🤝 Kontribusi 
+🚀 Feel Free Untuk Berkontribusi!
+1. **Fork** Repo Ini
+2. **Buat Branch Baru** (`git checkout -b fitur-baru`)
+3. **Commit Perubahan** (`git commit -m 'Menambahkan fitur X'`)
+4. **Push Branch** (`git push origin fitur-baru`)
+5. **Buka Pull Request** 🚀
+
+---
+
+## 📄 Lisensi  
+MIT License © 2025 - Dibuat Dengan ❤️ Oleh [Abuu 'Ubaadah Muhammad Yaziid Shabriyy](#).
+
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
