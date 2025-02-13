@@ -131,7 +131,8 @@ Laravel menggunakan **MVC (Model-View-Controller)** untuk memisahkan logika apli
 ---
 
 ## 📄 Lisensi  
-MIT License © 2025 - Dibuat Dengan ❤️ Oleh [Abuu 'Ubaadah Muhammad Yaziid Shabriyy](#).
+© 2025 - Dipraktikkan Dengan ❤️ Oleh [Abuu 'Ubaadah Muhammad Yaziid Shabriyy](#).
+Origin Project By [Mr. Syafiq Rizky Fauzi](#).
 
 
 ## About Laravel
