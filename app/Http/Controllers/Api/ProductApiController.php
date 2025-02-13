@@ -68,7 +68,7 @@ class ProductApiController extends Controller
         $product->update(['image' => $imagePath]);
     }
 
-    return redirect()->route('products.index')->with('success', 'Produk berhasil ditambahkan');
+    return redirect()->route('products.index')->with('success', 'Produk Berhasil Ditambahkan');
 }
 
     /**
@@ -94,49 +94,47 @@ class ProductApiController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
-    {
-        $validatedData = $request->validate([
-            'category_id' => 'required|exists:categories,id',
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
-            'price' => 'required|numeric',
-            'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
-            'criteria' => 'required|string',
-            'favorite' => 'required|boolean',
-            'status' => 'required|string',
-            'stock' => 'required|integer|min:0',
-        ]);
+   public function update(Request $request, Product $product)
+{
+    // Validasi Data Yang Dikirim Dari Form
+    $request->validate([
+        'category_id' => 'required',
+        'name' => 'required',
+        'description' => 'required',
+        'price' => 'required|numeric',
+        'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2000',
+        'criteria' => 'required|string',
+        'favorite' => 'required|boolean',
+        'status' => 'required|string',
+        'stock' => 'required|integer|min:0',
+    ]);
 
-        $product->update($validatedData);
+    // Perbarui Data Produk
+    $product->update($request->all());
 
-        // Kalau Ada Gambar Baru, Update Dan Hapus Gambar Lama
-        if ($request->hasFile('image')) {
-            if ($product->image) {
-                Storage::delete('public/' . $product->image);
-            }
-            $imagePath = $request->file('image')->storeAs(
-                'public/products',
-                $product->id . '.' . $request->file('image')->extension()
-            );
-            $product->update(['image' => str_replace('public/', '', $imagePath)]);
-        }
-
-        return redirect()->route('products.index')->with('success', 'Product Has Successfully Updated');
+    // Jika Ada Gambar Baru, Simpan Dan Ganti Yang Lama
+    if ($request->hasFile('image')) {
+        $imagePath = $request->file('image')->store('products', 'public');
+        $product->update(['image' => $imagePath]);
     }
 
+    return redirect()->route('products.index')->with('success', 'Produk Berhasil Diperbarui');
+}
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product)
-    {
-        // Hapus Gambar Kalau Ada
-        if ($product->image) {
-            Storage::delete('public/' . $product->image);
-        }
-        $product->delete();
-
-        return redirect()->route('products.index')->with('success', 'Product Has Successfully Deleted');
-    
+   public function destroy(Product $product)
+   {
+    // Jika Produk Punya Gambar, Hapus
+    if ($product->image) {
+        Storage::delete('public/' . $product->image);
     }
+
+    // Hapus Produk Dari Database
+    $product->delete();
+
+    // Kembali Ke Daftar Produk Dengan Pesan Sukses
+    return redirect()->route('products.index')->with('success', 'Produk Berhasil Dihapus');
+}
+
 }
