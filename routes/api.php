@@ -17,7 +17,7 @@ Route::middleware('/auth:sanctum')->group(function () {
 Route::get('/user', [AuthController::class, 'me'])->middleware('auth:sanctum');
 
 
-// CRUD
+// CRUD And More Related
 Route::middleware('auth:sanctum')->prefix('categories')->group(function () {
     Route::get('/', [CategoryController::class, 'index']);
     Route::post('/', [CategoryController::class, 'store']);
