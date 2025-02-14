@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 class OrderApiController extends Controller
 {
     /**
-     * Menampilkan daftar order.
+     * Menampilkan Daftar Order.
      */
     public function index()
     {
@@ -21,7 +21,7 @@ class OrderApiController extends Controller
     }
 
     /**
-     * Menyimpan order baru.
+     * Menyimpan Order Baru.
      */
     public function store(Request $request)
     {
@@ -38,7 +38,7 @@ class OrderApiController extends Controller
         }
 
         $order = Order::create([
-            'user_id' => Auth::id(), // Order dibuat oleh user yang login
+            'user_id' => Auth::id(), // Order Dibuat Oleh User Yang Login
             'cashier_id' => Auth::id(),
             'cashier_name' => Auth::user()->name,
             'transaction_time' => now(),
@@ -49,21 +49,21 @@ class OrderApiController extends Controller
             'status' => $request->status,
         ]);
 
-        return ResponseHelper::success('Order created successfully', $order, 201);
+        return ResponseHelper::success('Order Has Created Successfully', $order, 201);
     }
 
     /**
-     * Menampilkan detail order tertentu.
+     * Menampilkan Detail Order Tertentu.
      */
     public function show($id)
     {
         $order = Order::with('orderItems', 'cashier')->find($id);
 
         if (!$order) {
-            return ResponseHelper::error('Order not found', 404);
+            return ResponseHelper::error('Order Has Not Found', 404);
         }
 
-        return ResponseHelper::success('Order details', $order);
+        return ResponseHelper::success('Order Details', $order);
     }
 
     /**
@@ -74,7 +74,7 @@ class OrderApiController extends Controller
         $order = Order::find($id);
 
         if (!$order) {
-            return ResponseHelper::error('Order not found', 404);
+            return ResponseHelper::error('Order Has Not Found', 404);
         }
 
         $validator = Validator::make($request->all(), [
@@ -93,21 +93,21 @@ class OrderApiController extends Controller
             'total_price', 'total_item', 'payment_amount', 'payment_method', 'status'
         ]));
 
-        return ResponseHelper::success('Order updated successfully', $order);
+        return ResponseHelper::success('Order Has Updated Successfully', $order);
     }
 
     /**
-     * Hapus order (soft delete).
+     * Hapus Order (Soft Delete).
      */
     public function destroy($id)
     {
         $order = Order::find($id);
 
         if (!$order) {
-            return ResponseHelper::error('Order not found', 404);
+            return ResponseHelper::error('Order Has Not Found', 404);
         }
 
         $order->delete();
-        return ResponseHelper::success('Order soft deleted successfully');
+        return ResponseHelper::success('Order Has Soft Deleted Successfully');
     }
 }
